@@ -77,6 +77,19 @@ public class SessionWebServer extends Session {
         super(socket);
     }
 
+    private static String readHtmlFile(String filePath) {
+        StringBuilder contentBuilder = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                contentBuilder.append(line).append("\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return contentBuilder.toString();
+    }
+
     public void processRequest(BufferedReader reader, PrintWriter writer) {
         writer.println(html);
     }
