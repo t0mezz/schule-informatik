@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="informatik-server-client:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/informatik_server_client_jar</output-path>
+    <root id="archive" name="informatik-server-client.jar">
+      <element id="module-output" name="informatik-server-client" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/java/lib/basisSwing.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
