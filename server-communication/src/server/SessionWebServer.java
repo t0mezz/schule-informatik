@@ -2,15 +2,13 @@ package server;
 
 import java.io.*;
 import java.net.Socket;
+
 /**
  * Die Klasse Session verarbeitet die Anfrage.
  *
- * @author      Roland Stiebel
+ * @author Roland Stiebel
  */
-public class SessionWebServer implements Runnable
-{
-    private final Socket socket;
-
+public class SessionWebServer extends Session {
     private String html = "HTTP/1.1 200 OK\n" +
             "Accept-Ranges: bytes\n" +
             "Vary: Accept-Encoding\n" +
@@ -69,31 +67,11 @@ public class SessionWebServer implements Runnable
             "</body>\n" +
             "</html>";
 
-    public SessionWebServer(Socket socket)
-    {
-        this.socket = socket;
+    public SessionWebServer(Socket socket) {
+        super(socket);
     }
 
-    public void run() {
-        try (
-                InputStream streamIn = socket.getInputStream();
-                InputStreamReader streamReaderIn = new InputStreamReader(streamIn);
-                BufferedReader reader = new BufferedReader(streamReaderIn);
-                OutputStream streamOut = socket.getOutputStream();
-                PrintWriter writer = new PrintWriter(streamOut, true);
-        ) {
-            String requestLine = reader.readLine();
-            if (requestLine != null && requestLine.startsWith("GET")) {
-                writer.println(html);
-            }
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        } finally {
-            try {
-                socket.close();
-            } catch (IOException ex) {
-                System.out.println(ex.getMessage());
-            }
-        }
+    public void processRequest(BufferedReader reader, PrintWriter writer) {
+        writer.println(html);
     }
 }

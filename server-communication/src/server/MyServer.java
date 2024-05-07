@@ -31,7 +31,7 @@ public class MyServer
                 Socket socket = serverSocket.accept();
                 System.out.println("Anfrage akzeptiert ...");
 
-                SessionWebServer session = new SessionWebServer(socket);
+                Session session = new SessionWebServer(socket);
                 Thread sessionThread = new Thread(session);
                 sessionThread.start();
             }
